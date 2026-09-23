@@ -536,3 +536,30 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .evidence-dictionary dt { font-weight:600; }
 .evidence-dictionary dd { margin:0; }
 @media(max-width:620px){.boundary-preview{grid-template-columns:1fr}.evidence-actions{align-items:stretch;flex-direction:column}.site-header nav{flex-wrap:wrap;justify-content:flex-end}}
+
+/* A prose-first briefing with research details available on demand. */
+.place-search { display:flex; gap:1rem; align-items:end; margin:1.5rem 0; }
+.place-search label { flex:1; }
+.place-search button, .county-choice button { min-height:48px; padding:.8rem 1.1rem; border:1px solid #adc7bf; background:#eef5f2; border-radius:5px; color:#204d43; }
+.place-matches { list-style:none; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; }
+.place-matches button { width:100%; text-align:left; padding:1rem; border:1px solid #d7e1e8; background:#fff; border-radius:5px; }
+.place-matches small { display:block; color:#526479; margin-top:.3rem; }
+.county-choice { padding:1.2rem; background:#f3f7f5; border-radius:6px; }
+.county-choice button { margin:.5rem .5rem 0 0; }
+.place-briefing { border-top:1px solid #d7e1e8; padding-top:1.5rem; margin-top:1rem; }
+.place-briefing h3 { font-size:1.6rem; margin:.4rem 0; }
+.briefing-scope { color:#526479; font-size:.9rem; }
+.briefing-section { margin:1.8rem 0; max-width:75ch; }
+.briefing-section h4 { font-size:1.1rem; margin:0 0 .6rem; }
+.briefing-section p { line-height:1.8; font-size:1.05rem; }
+.briefing-section .briefing-interpretation { color:#526479; font-size:.95rem; }
+.briefing-details { margin:1.2rem 0; border-top:1px solid #d7e1e8; padding-top:1rem; }
+.briefing-details summary, .briefing-record summary, .evidence-editor summary { cursor:pointer; font-weight:600; padding:.6rem 0; }
+.briefing-record { border-bottom:1px solid #e0e7eb; padding:.6rem 0; overflow-wrap:anywhere; }
+.briefing-record label { display:block; margin:.7rem 0; }
+.dimension-disclosure { border:1px solid #d7e1e8; background:white; margin:1rem 0; }
+.dimension-disclosure > summary { cursor:pointer; padding:1.2rem; font-weight:600; }
+.dimension-disclosure > summary small { float:right; color:#526479; font-weight:400; }
+.dimension-disclosure .question-card { border:none; margin:0; }
+.draft-notice { padding:1.5rem; background:#eef5f2; border:1px solid #adc7bf; margin-bottom:1.5rem; }
+@media(max-width:600px) { .place-search { align-items:stretch; flex-direction:column; } .place-matches { grid-template-columns:1fr; } .dimension-disclosure > summary small { float:none; display:block; margin-top:.3rem; } }

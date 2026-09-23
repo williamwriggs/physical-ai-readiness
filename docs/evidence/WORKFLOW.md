@@ -2,7 +2,7 @@
 
 ## What is implemented
 
-The assessment page now includes a public-evidence workflow: choose a county, preview and confirm its boundary, load a saved live-source snapshot or request a refresh, inspect eight indicators, review their relevance, and accept/reject/correct records. Accepted context appears in the corresponding PAIR dimensions without changing ratings. JSON exports retain original packages and review history. The Evidence navigation item opens the full dictionary.
+The assessment page now includes a public-evidence workflow: search by city or county name, choose the explicitly labelled county context, read a prose briefing, and optionally inspect sources or accept/reject/correct individual records. Accepted context appears in the corresponding PAIR dimensions without changing ratings. JSON exports retain original packages and review history. The Evidence navigation item opens the full dictionary.
 
 The repository includes live-source snapshots for Jefferson County KY and San Francisco County CA. They are dated baseline observations, not mocked results or continuously refreshed live data. The pipeline is generic to US county GEOIDs within its stated size limit.
 
@@ -36,7 +36,7 @@ This local refresh launcher permits one active job per Node process, deduplicate
 
 ## Hosting
 
-Do not enable the subprocess launcher in a serverless or multi-instance deployment. Generate public evidence packages with the Python CLI in a controlled batch environment, review the outputs, and publish them alongside the app. Users can then load snapshots or import new versioned packages. A future queued worker service is needed for production on-demand refresh at scale. This increment has not been deployed to the public website.
+Do not enable the subprocess launcher in a serverless or multi-instance deployment. Generate public evidence packages with the Python CLI in a controlled batch environment, review the outputs, and publish them alongside the app. Users can then load snapshots or import new versioned packages. A future queued worker service is needed for production on-demand refresh at scale. The original snapshot workflow is deployed publicly; named-place briefings additionally use the bounded web adapter described in METHODS_AND_DECISIONS.md.
 
 Raw snapshots and OSM HTTP cache are under `.evidence-cache/`, which is ignored by Git. Retain these privately for reproducibility. Do not copy organization documents or sensitive operational records into the public snapshot directory. Only public contextual source records belong there.
 
@@ -47,7 +47,7 @@ npm test
 .venv/bin/python scripts/evidence/test_pipeline.py
 npm run lint
 npx tsc --noEmit
-npm run build -- --webpack
+npm run build
 ```
 
 The browser workflow should be checked for both counties, evidence acceptance/correction/rejection, export and reload, missing fields, unavailable refresh, and narrow screens. Verify no maturity rating is assigned by public-data acceptance. See `VALIDATION.md` for the actual run results.

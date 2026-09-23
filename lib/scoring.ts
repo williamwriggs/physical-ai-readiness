@@ -1,3 +1,4 @@
+import { assessmentCompletion, isResponseComplete } from "./validation";
 import { dimensions } from "./assessment-data";
 import { getMaturityLevel } from "./maturity";
 import { buildActionPlan } from "./recommendations";
@@ -23,7 +24,7 @@ export function calculateDomainScores(responses: AssessmentState["responses"]): 
     const members = dimensions.filter((item) => item.domain === domain);
     const scores = members.flatMap((item) => {
       const response = responses[item.id];
-      return response?.status === "rated" && response.score !== null ? [response.score] : [];
+      return response?.status === "rated" && response.score !== null && isResponseComplete(response) ? [response.score] : [];
     });
     const score = average(scores);
     result[domain] = {
@@ -40,14 +41,14 @@ export function calculateDomainScores(responses: AssessmentState["responses"]): 
 export function calculateOverallScore(responses: AssessmentState["responses"]): number | null {
   const scores = dimensions.flatMap((item) => {
     const response = responses[item.id];
-    return response?.status === "rated" && response.score !== null ? [response.score] : [];
+    return response?.status === "rated" && response.score !== null && isResponseComplete(response) ? [response.score] : [];
   });
   return scores.length === dimensions.length ? average(scores) : null;
 }
 
 export function rankDimensions(responses: AssessmentState["responses"], direction: "high" | "low") {
   return [...dimensions]
-    .filter((item) => responses[item.id]?.status === "rated" && responses[item.id]?.score !== null)
+    .filter((item) => responses[item.id]?.status === "rated" && responses[item.id]?.score !== null && isResponseComplete(responses[item.id]))
     .sort((a, b) => {
       const aScore = responses[a.id].score ?? 0;
       const bScore = responses[b.id].score ?? 0;
@@ -59,14 +60,14 @@ export function rankDimensions(responses: AssessmentState["responses"], directio
 export function findEvidenceGaps(responses: AssessmentState["responses"]): EvidenceGap[] {
   return dimensions.flatMap<EvidenceGap>((dimension) => {
     const response = responses[dimension.id];
-    if (!response || response.status === "insufficient-evidence") {
-      return [{ dimensionId: dimension.id, dimensionTitle: dimension.title, reason: "insufficient-evidence" as const, message: "No maturity score was assigned because evidence is insufficient." }];
+    if (!response || response.status === "unrated" || response.status === "insufficient-evidence") {
+      return [{ dimensionId: dimension.id, dimensionTitle: dimension.title, reason: "insufficient-evidence" as const, message: "No supported maturity score is available yet." }];
     }
     if (response.status === "rated" && !response.evidence.some((item) => item.quality !== "missing" && (item.source.trim() || item.notes.trim()))) {
       return [{ dimensionId: dimension.id, dimensionTitle: dimension.title, reason: "no-evidence-cited" as const, message: "A provisional rating exists, but no supporting evidence is cited." }];
     }
-    if (response.status === "rated" && response.confidence === "low") {
-      return [{ dimensionId: dimension.id, dimensionTitle: dimension.title, reason: "low-confidence" as const, message: "The assessor marked this rating as low confidence." }];
+    if (response.status === "rated" && (response.confidence === "low" || !isResponseComplete(response))) {
+      return [{ dimensionId: dimension.id, dimensionTitle: dimension.title, reason: "low-confidence" as const, message: "This rating has low confidence or still needs a source, confidence, or rationale." }];
     }
     return [];
   });
@@ -115,6 +116,7 @@ export function buildAssessmentExport(state: AssessmentState): AssessmentExport 
     framework: "PAIR",
     product: "PAIR Assessment Tool",
     output: "PAIR Readiness Profile",
+    reviewStatus: assessmentCompletion(state).readyForProfile ? "reviewed" : "draft",
     assessment: {
       assessmentId: state.assessmentId,
       caseId: state.caseId,

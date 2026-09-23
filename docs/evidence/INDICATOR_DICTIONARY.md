@@ -1,6 +1,6 @@
 # PAIR indicator dictionary
 
-Version 1.0.0. Eight automated contextual/data-quality indicators, ten human-reviewed direct-evidence indicators, and four future adapters. No indicator assigns a maturity rating. The machine-readable source is `data/pair-indicators.json`.
+Version 1.1.0 (accepts existing 1.0.0 observation packages). Eight automated contextual/data-quality indicators, ten human-reviewed direct-evidence indicators, and four future adapters. No indicator assigns a maturity rating. The machine-readable source is `data/pair-indicators.json`.
 
 ## Dimension crosswalk
 
@@ -532,3 +532,7 @@ Mobility integration retains Architecture as its primary pillar and a conceptual
 **limitations:** Jobs are not trained staff, vacancies or organizational commitments.
 
 **reviewRequirement:** Reviewer must assess use-case relevance and geographic fit. No automatic maturity rating.
+
+## Public quick-profile adapter
+
+The `web-context/1.0` adapter provides ACS measures and attempts motor-road length and sidewalk documentation coverage from clipped, unsimplified OSM way segments. These lengths use geodesic distance; sidewalk coverage is weighted on original segments. The two topology measures (mean segment length and intersection density) remain explicitly missing. This differs from the OSMnx baseline method; comparisons must use matching adapter/settings. Source dates, missing reasons and record-specific calculations are retained. See METHODS_AND_DECISIONS.md for boundaries, provider limits and interpretation.

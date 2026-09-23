@@ -20,7 +20,10 @@
       "const": "pair-evidence/1.0"
     },
     "dictionaryVersion": {
-      "const": "1.0.0"
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
     },
     "pipelineVersion": {
       "type": "string"

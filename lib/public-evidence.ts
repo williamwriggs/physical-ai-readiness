@@ -32,7 +32,7 @@ const finiteOrNull = (v: unknown) => v === null || (typeof v === 'number' && Num
 const safeUrl = (v: unknown) => { try { return typeof v === 'string' && new URL(v).protocol === 'https:'; } catch { return false; } };
 
 export function parseEvidencePackage(raw: unknown): EvidencePackage {
-  if (!object(raw) || raw.schemaVersion !== 'pair-evidence/1.0' || raw.dictionaryVersion !== dictionary.version ||
+  if (!object(raw) || raw.schemaVersion !== 'pair-evidence/1.0' || !["1.0.0", dictionary.version].includes(String(raw.dictionaryVersion)) ||
       !text(raw.pipelineVersion) || !text(raw.packageId) || !/^[a-f0-9]{64}$/.test(raw.packageId) || !text(raw.generatedAt) || !text(raw.useCase) ||
       !object(raw.geography) || !Array.isArray(raw.records) || !Array.isArray(raw.warnings) || !raw.warnings.every(text) || !object(raw.manifest)) throw new Error('Unsupported or incomplete evidence package.');
   const g=raw.geography;
@@ -91,7 +91,7 @@ export function attachPackage(state: AssessmentState, pkg: EvidencePackage): Ass
 export function reviewEvidence(state: AssessmentState, pkg: EvidencePackage, indicatorId: string, decision: EvidenceReview['decision'], note: string, correction: string): AssessmentState {
   const row=pkg.records.find(r=>r.indicatorId===indicatorId);
   if (!row) throw new Error('Indicator not found.');
-  if (!state.meta.assessorLabel.trim() || !state.meta.useCase.trim() || !state.meta.geography.trim()) throw new Error('Add assessor, use case and geography before reviewing evidence.');
+  if (!state.meta.assessorLabel.trim()) throw new Error('Add an assessor name or team label in the optional review section before attaching a fact.');
   if ((decision==='rejected' || decision==='corrected') && !note.trim()) throw new Error('Explain why you rejected or corrected this evidence.');
   if (decision==='corrected' && !correction.trim()) throw new Error('Provide the corrected value or interpretation.');
   if (row.status==='missing' && decision==='accepted') throw new Error('Missing evidence cannot be accepted as an observed value. Add reviewed evidence manually or provide a sourced correction.');

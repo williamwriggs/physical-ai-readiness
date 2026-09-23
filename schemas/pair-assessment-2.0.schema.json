@@ -4,32 +4,483 @@
   "title": "PAIR Readiness Profile",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "frameworkVersion", "generatedAt", "framework", "product", "output", "assessment", "organization", "dimensions", "domainScores", "preliminaryOverallMaturity", "evidenceGaps", "gaps", "recommendations", "responsibleActors", "validationNeeds"],
+  "required": [
+    "schemaVersion",
+    "frameworkVersion",
+    "generatedAt",
+    "framework",
+    "product",
+    "output",
+    "assessment",
+    "organization",
+    "dimensions",
+    "domainScores",
+    "preliminaryOverallMaturity",
+    "evidenceGaps",
+    "gaps",
+    "recommendations",
+    "responsibleActors",
+    "validationNeeds"
+  ],
   "properties": {
-    "schemaVersion": { "const": "2.0" },
-    "frameworkVersion": { "type": "string", "minLength": 1 },
-    "generatedAt": { "type": "string", "format": "date-time" },
-    "framework": { "const": "PAIR" },
-    "product": { "const": "PAIR Assessment Tool" },
-    "output": { "const": "PAIR Readiness Profile" },
-    "assessment": { "$ref": "#/$defs/assessment" },
-    "organization": { "$ref": "#/$defs/organization" },
-    "dimensions": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "$ref": "#/$defs/dimension" } },
-    "domainScores": { "type": "object", "required": ["place", "architecture", "institutions", "returns"], "additionalProperties": false, "properties": { "place": { "$ref": "#/$defs/domainResult" }, "architecture": { "$ref": "#/$defs/domainResult" }, "institutions": { "$ref": "#/$defs/domainResult" }, "returns": { "$ref": "#/$defs/domainResult" } } },
-    "preliminaryOverallMaturity": { "type": "object", "required": ["score", "maturity", "ratedDimensions", "totalDimensions", "interpretation"], "properties": { "score": { "type": ["number", "null"], "minimum": 1, "maximum": 5 }, "maturity": { "type": ["string", "null"] }, "ratedDimensions": { "type": "integer", "minimum": 0, "maximum": 10 }, "totalDimensions": { "const": 10 }, "interpretation": { "type": "string" } } },
-    "evidenceGaps": { "type": "array", "items": { "type": "object" } },
-    "gaps": { "type": "array", "items": { "$ref": "#/$defs/actionPlan" } },
-    "recommendations": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "$ref": "#/$defs/actionPlan" } },
-    "responsibleActors": { "type": "array", "items": { "type": "string" } },
-    "validationNeeds": { "type": "array", "items": { "type": "string" } },
-    "automatedEvidence": { "$ref": "pair-evidence-1.0.schema.json#/$defs/history" }
+    "schemaVersion": {
+      "const": "2.0"
+    },
+    "frameworkVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "framework": {
+      "const": "PAIR"
+    },
+    "product": {
+      "const": "PAIR Assessment Tool"
+    },
+    "output": {
+      "const": "PAIR Readiness Profile"
+    },
+    "assessment": {
+      "$ref": "#/$defs/assessment"
+    },
+    "organization": {
+      "$ref": "#/$defs/organization"
+    },
+    "dimensions": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "$ref": "#/$defs/dimension"
+      }
+    },
+    "domainScores": {
+      "type": "object",
+      "required": [
+        "place",
+        "architecture",
+        "institutions",
+        "returns"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "place": {
+          "$ref": "#/$defs/domainResult"
+        },
+        "architecture": {
+          "$ref": "#/$defs/domainResult"
+        },
+        "institutions": {
+          "$ref": "#/$defs/domainResult"
+        },
+        "returns": {
+          "$ref": "#/$defs/domainResult"
+        }
+      }
+    },
+    "preliminaryOverallMaturity": {
+      "type": "object",
+      "required": [
+        "score",
+        "maturity",
+        "ratedDimensions",
+        "totalDimensions",
+        "interpretation"
+      ],
+      "properties": {
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "maturity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ratedDimensions": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "totalDimensions": {
+          "const": 10
+        },
+        "interpretation": {
+          "type": "string"
+        }
+      }
+    },
+    "evidenceGaps": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actionPlan"
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "$ref": "#/$defs/actionPlan"
+      }
+    },
+    "responsibleActors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validationNeeds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "automatedEvidence": {
+      "$ref": "pair-evidence-1.0.schema.json#/$defs/history"
+    },
+    "reviewStatus": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed"
+      ]
+    }
   },
   "$defs": {
-    "assessment": { "type": "object", "additionalProperties": false, "required": ["assessmentId", "caseId", "caseName", "assessorLabel", "assessmentDate", "updatedAt"], "properties": { "assessmentId": { "type": "string" }, "caseId": { "type": "string" }, "caseName": { "type": "string" }, "assessorLabel": { "type": "string" }, "assessmentDate": { "type": "string", "format": "date" }, "updatedAt": { "type": "string", "format": "date-time" } } },
-    "organization": { "type": "object", "additionalProperties": false, "required": ["caseName", "organization", "geography", "benchmarkGeography", "organizationType", "useCase", "assessorLabel", "assessmentDate"], "properties": { "caseName": { "type": "string" }, "organization": { "type": "string" }, "geography": { "type": "string" }, "benchmarkGeography": { "type": "string" }, "organizationType": { "type": "string" }, "useCase": { "type": "string" }, "assessorLabel": { "type": "string" }, "assessmentDate": { "type": "string", "format": "date" } } },
-    "evidence": { "type": "object", "additionalProperties": false, "required": ["id", "quality", "type", "source", "date", "geography", "confidence", "reference", "notes"], "properties": { "id": { "type": "string" }, "quality": { "enum": ["verified", "stakeholder-reported", "inferred", "missing"] }, "type": { "enum": ["document", "dataset", "interview", "observation", "system-record", "expert-judgment", "other"] }, "source": { "type": "string" }, "date": { "type": "string" }, "geography": { "type": "string" }, "confidence": { "enum": ["", "low", "medium", "high"] }, "reference": { "type": "string" }, "notes": { "type": "string" } } },
-    "dimension": { "type": "object", "additionalProperties": false, "required": ["id", "number", "domain", "title", "construct", "status", "score", "maturity", "evidence", "confidence", "rationale"], "properties": { "id": { "type": "string" }, "number": { "type": "integer", "minimum": 1, "maximum": 10 }, "domain": { "enum": ["place", "architecture", "institutions", "returns"] }, "title": { "type": "string" }, "construct": { "type": "string" }, "status": { "enum": ["unrated", "insufficient-evidence", "rated"] }, "score": { "type": ["integer", "null"], "minimum": 1, "maximum": 5 }, "maturity": { "type": ["string", "null"] }, "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } }, "confidence": { "enum": ["", "low", "medium", "high"] }, "rationale": { "type": "string" } } },
-    "domainResult": { "type": "object", "additionalProperties": false, "required": ["domain", "score", "maturity", "ratedDimensions", "totalDimensions"], "properties": { "domain": { "enum": ["place", "architecture", "institutions", "returns"] }, "score": { "type": ["number", "null"], "minimum": 1, "maximum": 5 }, "maturity": { "type": ["string", "null"] }, "ratedDimensions": { "type": "integer", "minimum": 0 }, "totalDimensions": { "type": "integer", "minimum": 1 } } },
-    "actionPlan": { "type": "object", "required": ["dimensionId", "dimensionTitle", "diagnosedIssue", "supportingEvidence", "confidence", "responsibleActors", "interventionType", "recommendedIntervention", "suggestedValidationStep"], "properties": { "dimensionId": { "type": "string" }, "dimensionTitle": { "type": "string" }, "diagnosedIssue": { "type": "string" }, "supportingEvidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } }, "confidence": { "enum": ["", "low", "medium", "high"] }, "responsibleActors": { "type": "array", "items": { "type": "string" } }, "interventionType": { "enum": ["policy/institutional sprint", "infrastructure assessment", "stakeholder process", "workforce/capacity development", "research/evaluation", "deployment pilot"] }, "recommendedIntervention": { "type": "string" }, "suggestedValidationStep": { "type": "string" } } }
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessmentId",
+        "caseId",
+        "caseName",
+        "assessorLabel",
+        "assessmentDate",
+        "updatedAt"
+      ],
+      "properties": {
+        "assessmentId": {
+          "type": "string"
+        },
+        "caseId": {
+          "type": "string"
+        },
+        "caseName": {
+          "type": "string"
+        },
+        "assessorLabel": {
+          "type": "string"
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "caseName",
+        "organization",
+        "geography",
+        "benchmarkGeography",
+        "organizationType",
+        "useCase",
+        "assessorLabel",
+        "assessmentDate"
+      ],
+      "properties": {
+        "caseName": {
+          "type": "string"
+        },
+        "organization": {
+          "type": "string"
+        },
+        "geography": {
+          "type": "string"
+        },
+        "benchmarkGeography": {
+          "type": "string"
+        },
+        "organizationType": {
+          "type": "string"
+        },
+        "useCase": {
+          "type": "string"
+        },
+        "assessorLabel": {
+          "type": "string"
+        },
+        "assessmentDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "quality",
+        "type",
+        "source",
+        "date",
+        "geography",
+        "confidence",
+        "reference",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "quality": {
+          "enum": [
+            "verified",
+            "stakeholder-reported",
+            "inferred",
+            "missing"
+          ]
+        },
+        "type": {
+          "enum": [
+            "document",
+            "dataset",
+            "interview",
+            "observation",
+            "system-record",
+            "expert-judgment",
+            "other"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "geography": {
+          "type": "string"
+        },
+        "confidence": {
+          "enum": [
+            "",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "reference": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "number",
+        "domain",
+        "title",
+        "construct",
+        "status",
+        "score",
+        "maturity",
+        "evidence",
+        "confidence",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "domain": {
+          "enum": [
+            "place",
+            "architecture",
+            "institutions",
+            "returns"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "construct": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "unrated",
+            "insufficient-evidence",
+            "rated"
+          ]
+        },
+        "score": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "maturity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "confidence": {
+          "enum": [
+            "",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "domainResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "score",
+        "maturity",
+        "ratedDimensions",
+        "totalDimensions"
+      ],
+      "properties": {
+        "domain": {
+          "enum": [
+            "place",
+            "architecture",
+            "institutions",
+            "returns"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 5
+        },
+        "maturity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ratedDimensions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "totalDimensions": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "actionPlan": {
+      "type": "object",
+      "required": [
+        "dimensionId",
+        "dimensionTitle",
+        "diagnosedIssue",
+        "supportingEvidence",
+        "confidence",
+        "responsibleActors",
+        "interventionType",
+        "recommendedIntervention",
+        "suggestedValidationStep"
+      ],
+      "properties": {
+        "dimensionId": {
+          "type": "string"
+        },
+        "dimensionTitle": {
+          "type": "string"
+        },
+        "diagnosedIssue": {
+          "type": "string"
+        },
+        "supportingEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "confidence": {
+          "enum": [
+            "",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "responsibleActors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "interventionType": {
+          "enum": [
+            "policy/institutional sprint",
+            "infrastructure assessment",
+            "stakeholder process",
+            "workforce/capacity development",
+            "research/evaluation",
+            "deployment pilot"
+          ]
+        },
+        "recommendedIntervention": {
+          "type": "string"
+        },
+        "suggestedValidationStep": {
+          "type": "string"
+        }
+      }
+    }
   }
 }

@@ -117,6 +117,7 @@ export interface AssessmentExport {
   framework: "PAIR";
   product: "PAIR Assessment Tool";
   output: "PAIR Readiness Profile";
+  reviewStatus?: "draft" | "reviewed";
   assessment: {
     assessmentId: string;
     caseId: string;

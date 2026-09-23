@@ -50,8 +50,8 @@ export function AssessmentQuestion({ dimension, response, onChange }: { dimensio
         <label className={response.status === "insufficient-evidence" ? "insufficient-option selected" : "insufficient-option"}><input type="radio" name={`score-${dimension.id}`} value="insufficient-evidence" aria-label="Insufficient evidence" checked={response.status === "insufficient-evidence"} onChange={markInsufficient} /><span><strong>Insufficient evidence</strong><small>Do not assign a low score when the available evidence cannot support a maturity judgment.</small></span></label>
       </fieldset>
 
-      <section className="evidence-editor" aria-labelledby={`evidence-${dimension.id}`}>
-        <div className="evidence-heading"><div><h3 id={`evidence-${dimension.id}`}>Evidence</h3><p>Add the source details behind this judgment. Rated responses require at least one usable record.</p></div><button type="button" onClick={() => onChange({ ...response, evidence: [...response.evidence, emptyEvidence()] })}>+ Add evidence</button></div>
+      <details className="evidence-editor" aria-labelledby={`evidence-${dimension.id}`}>
+        <summary>Sources and supporting evidence (add when ready)</summary><div className="evidence-heading"><div><h3 id={`evidence-${dimension.id}`}>Evidence</h3><p>Add a source when you have one. A draft can be saved without evidence; supported ratings need a source, confidence and a short explanation.</p></div><button type="button" onClick={() => onChange({ ...response, evidence: [...response.evidence, emptyEvidence()] })}>+ Add evidence</button></div>
         {response.evidence.length === 0 ? <p className="evidence-empty">No evidence records yet.</p> : response.evidence.map((item, index) => <div className="evidence-record" key={item.id}>
           <div className="evidence-record-heading"><strong>Evidence {index + 1}</strong><button type="button" onClick={() => removeEvidence(item.id)} aria-label={`Remove evidence ${index + 1}`}>Remove</button></div>
           <div className="evidence-grid">
@@ -65,10 +65,10 @@ export function AssessmentQuestion({ dimension, response, onChange }: { dimensio
             <label className="span-two">Evidence notes <span>Optional</span><textarea value={item.notes} onChange={(event) => updateEvidence(item.id, { notes: event.target.value })} placeholder="What does this source establish, and what are its limits?" /></label>
           </div>
         </div>)}
-      </section>
+      </details>
 
-      <div className="question-details hardened"><label>Assessor rationale <textarea value={response.rationale} onChange={(event) => onChange({ ...response, rationale: event.target.value })} placeholder="Explain why the cited evidence supports this anchor—or what evidence is missing." /></label><label>Assessor confidence<select disabled={response.status === "insufficient-evidence"} value={response.confidence} onChange={(event) => onChange({ ...response, confidence: event.target.value as Confidence })}><option value="">Select confidence</option><option value="low">Low — material uncertainty</option><option value="medium">Medium — supported with gaps</option><option value="high">High — current, scope-matched support</option></select><small>Confidence describes the maturity judgment. Evidence confidence is recorded separately.</small></label></div>
-      {errors.length > 0 && <div className="validation-note" role="status"><strong>Complete this dimension</strong><ul>{errors.map((error) => <li key={error}>{error}</li>)}</ul></div>}
+      <div className="question-details hardened"><label>Your reasoning (optional for a draft) <textarea value={response.rationale} onChange={(event) => onChange({ ...response, rationale: event.target.value })} placeholder="Explain why the cited evidence supports this anchor—or what evidence is missing." /></label><label>Assessor confidence<select disabled={response.status === "insufficient-evidence"} value={response.confidence} onChange={(event) => onChange({ ...response, confidence: event.target.value as Confidence })}><option value="">Select confidence</option><option value="low">Low — material uncertainty</option><option value="medium">Medium — supported with gaps</option><option value="high">High — current, scope-matched support</option></select><small>Confidence describes the maturity judgment. Evidence confidence is recorded separately.</small></label></div>
+      {errors.length > 0 && <details className="validation-note"><summary>What would support this rating?</summary><strong>This rating is provisional</strong><ul>{errors.map((error) => <li key={error}>{error}</li>)}</ul></details>}
     </article>
   );
 }

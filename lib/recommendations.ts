@@ -194,7 +194,7 @@ export function buildActionPlan(dimensionId: string, response: DimensionResponse
     };
   }
   const band = bandForScore(response.score);
-  const needsEvidenceValidation = response.confidence === "low" || !response.evidence.some((item) => item.quality === "verified" && (item.source.trim() || item.notes.trim()));
+  const needsEvidenceValidation = !response.rationale.trim() || !response.confidence || response.confidence === "low" || !response.evidence.some((item) => item.quality === "verified" && item.confidence && (item.source.trim() || item.notes.trim()));
   if (needsEvidenceValidation) {
     return {
       dimensionId,
