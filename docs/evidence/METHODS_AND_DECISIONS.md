@@ -15,7 +15,7 @@ The current app reordered the original worksheet dimensions. Stable IDs and curr
 - Louisville context: Jefferson County, Kentucky, GEOID 21111. This is not Louisville city balance, Louisville metropolitan area, or a confirmed organization's operating footprint.
 - San Francisco context: San Francisco County, California, GEOID 06075. The Census polygon includes water and islands.
 
-Both boundaries are retrieved from the ACS 2024 TIGERweb county layer. Census land area is the denominator for intersection density. No area weighting, geographic interpolation or allocation of county residents to a facility is performed. The UI previews the boundary and requires explicit context confirmation. Geographic fit must be acknowledged again before a record is accepted into an assessment. Organization and deployment geography remain separately entered by the assessor.
+Both boundaries are retrieved from the ACS 2024 TIGERweb county layer. Census land area is the denominator for intersection density. No area weighting, geographic interpolation or allocation of county residents to a facility is performed. The named-place UI explicitly identifies the county before the user chooses its briefing and retains the official boundary link. Record-level review is optional; attaching a fact records a named human review. Organization and deployment geography remain separately entered by the assessor.
 
 County code input is generic, not restricted to the two test cases. The local network worker bounds total polygon area at 2,500 km² to avoid unrestricted downloads. Larger counties, non-US areas, custom site polygons, multiple-site aggregation and automatic organization geocoding are future work. Imported evidence in this version follows the same county schema.
 
@@ -45,7 +45,7 @@ Public metrics enter an immutable evidence package. Package IDs, boundary hashes
 
 Acceptance attaches a contextual dataset item to the relevant dimensions with an inferred classification and unset confidence. Existing scores, dimension status, confidence and rationale are not changed. Corrections require a value/interpretation and a note, and are classified as stakeholder-reported. Rejection removes only the linked item for that snapshot; original source values and review events remain in the history. Refresh adds a new snapshot and leaves all earlier reviews and manual evidence intact.
 
-Coverage is available records out of the fixed eight automated indicators. It does not represent the fraction of readiness established. Ten direct-evidence requirements remain manual. Review history and source packages travel with the assessment's optional `automatedEvidence` field and with the draft export. Existing v2 and legacy v1 imports remain supported. Older application versions may discard this new optional field; use this version to round-trip enriched assessments.
+Coverage is available records out of the fixed eight automated indicators. It does not represent the fraction of readiness established. Ten direct-evidence indicators remain available for manual assessment; users may leave dimensions unexplored in a draft. Review history and source packages travel with the assessment's optional `automatedEvidence` field and with the draft export. Existing v2 and legacy v1 imports remain supported. Older application versions may discard this new optional field; use this version to round-trip enriched assessments.
 
 ## Research contribution and remaining validation
 

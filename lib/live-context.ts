@@ -30,7 +30,7 @@ async function osm(g:EvidencePackage['geography']){
  const bbox=[Math.min(...ys),Math.min(...xs),Math.max(...ys),Math.max(...xs)].join(',');
  // Request geometry crossing the boundary, then clip source segments to Census geometry.
  
- const query=`[out:json][timeout:45][maxsize:134217728];way["highway"](${bbox});out geom;`;
+ const query=`[out:json][timeout:45][maxsize:134217728];way["highway"~"^(motorway|trunk|primary|secondary|tertiary|unclassified|residential|living_street|motorway_link|trunk_link|primary_link|secondary_link|tertiary_link)$"]["area"!="yes"]["access"!~"^(private|no)$"](${bbox});out geom;`;
  const url='https://overpass.private.coffee/api/interpreter?data='+encodeURIComponent(query);
  const response=await fetch('https://overpass.private.coffee/api/interpreter',{
   method:'POST',headers:{'User-Agent':'PAIR-evidence/1.0 (https://www.physicalaireadiness.org)','Content-Type':'application/x-www-form-urlencoded'},
@@ -39,7 +39,7 @@ async function osm(g:EvidencePackage['geography']){
  if(!response.ok)throw new Error('OpenStreetMap is temporarily unavailable. Please try again later.');
  const reader=response.body?.getReader();if(!reader)throw new Error('OpenStreetMap returned no data.');
  const chunks:Uint8Array[]=[];let bytes=0;
- while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.length;if(bytes>32_000_000){await reader.cancel();throw new Error('Street response exceeds the quick-profile size limit.');}chunks.push(value);}
+ while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.length;if(bytes>64_000_000){await reader.cancel();throw new Error('Street response exceeds the quick-profile size limit.');}chunks.push(value);}
  const raw=JSON.parse(Buffer.concat(chunks).toString('utf8'));
  if(raw.remark || !Array.isArray(raw.elements))throw new Error('OpenStreetMap returned an incomplete response. Try again later.');
  if(raw.elements.length>80000)throw new Error('Street response exceeds the quick-profile limit.');

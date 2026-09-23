@@ -35,7 +35,7 @@ The Python CLI and single-process local refresh were tested. A cloud worker, job
 
 ## Repeat the browser check
 
-`scripts/evidence/verify-browser.mjs` uses Playwright with a temporary Chrome profile and assumes a local preview with `PAIR_ENABLE_LOCAL_WORKER=1`. Set `PAIR_TEST_URL` to its address. Supply an installed Playwright module through `PAIR_PLAYWRIGHT_MODULE`, or install Playwright in the test environment. Browser screenshots and exported test artifacts are written only under the ignored `work/` directory.
+`scripts/evidence/verify-browser.mjs` uses Playwright with a temporary Chrome profile and checks the named-place workflow on a local or public site. Set `PAIR_TEST_URL` to its address. Supply an installed Playwright module through `PAIR_PLAYWRIGHT_MODULE`, or install Playwright in the test environment. Browser screenshots and exported test artifacts are written only under the ignored `work/` directory.
 
 ## Public deployment verification
 
@@ -50,3 +50,5 @@ The interface now presents short sourced briefings, optional detail/review drawe
 Live name lookup resolved Oakland, California to Alameda County and retrieved all four ACS measures. A separate live Bristol County, Rhode Island query returned four ACS measures plus mapped motor-road length (442.56 km) and sidewalk-attribute documentation (3.42%). The two topology measures remain explicitly unavailable in quick profiles. Earlier OSM requests timed out; the current provider endpoint and standard POST transport were used, with a simpler highway-geometry query followed by local filtering. Missing responses remain explicit and can be retried. Provider base dates are retained and lag is disclosed. These observations are integration tests, not a readiness comparison.
 
 All 52 application tests, lint, TypeScript and the production build passed. Desktop/mobile browser checks passed for named places, prose display, loading and persistence, optional acceptance/correction/exclusion with retained history, no per-fact confirmation gate, access to an empty draft, and provisional ratings without automatic scores. The browser script now accepts `PAIR_TEST_URL` and optional `PAIR_PLAYWRIGHT_MODULE`; it does not require a local Python worker.
+
+The named-place revision was also verified on the public site with a fresh Chrome profile. Optional review history, draft access, reload persistence and mobile layout passed; no error/fatal runtime logs were reported for the deployment during these checks. Large OSM responses may exceed the bounded quick lookup, in which case the Census briefing remains usable and the missing street data can be retried.
