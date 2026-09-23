@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/williamwriggs/physical-ai-readiness/blob/main/schemas/pair-calibration-report-1.0.schema.json",
+  "title": "PAIR Calibration Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "frameworkVersion", "caseName", "assessments", "dimensions", "overallDispersion", "reconciliationRequired", "interpretation"],
+  "properties": {
+    "schemaVersion": { "const": "pair-calibration-report/1.0" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "frameworkVersion": { "type": "string" },
+    "caseName": { "type": "string" },
+    "assessments": { "type": "array", "minItems": 2, "items": { "type": "object" } },
+    "dimensions": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "type": "object", "required": ["dimensionId", "dimensionTitle", "assessments", "scoreRange", "confidenceRange", "disagreement", "reconciliationReason"] } },
+    "overallDispersion": { "type": ["number", "null"], "minimum": 0, "maximum": 4 },
+    "reconciliationRequired": { "type": "array", "items": { "type": "string" } },
+    "interpretation": { "type": "string" }
+  }
+}

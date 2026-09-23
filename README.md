@@ -57,27 +57,32 @@ The framework follows this logic:
 
 ## Maturity and scoring
 
-PAIR currently uses a five-point maturity scale:
+PAIR uses a five-point maturity scale with dimension-specific anchors and evidence examples:
 
 | Score | Maturity level | Interpretation |
 |---:|---|---|
-| 1 | Not Ready | Major gaps exist and ownership or deployment pathways may be unclear. |
-| 2 | Emerging | Some capacity exists, but systems remain incomplete or fragmented. |
-| 3 | Pilot-Ready | Sufficient capacity exists for a bounded deployment with clear oversight. |
-| 4 | Deployment-Ready | Policies, infrastructure, people, and operating systems can support sustained deployment. |
-| 5 | Adaptive & Scalable | The system can deploy, measure outcomes, learn, adapt, and scale. |
+| 1 | Not Ready | Evidence demonstrates foundational conditions are absent or materially inadequate. |
+| 2 | Emerging | Partial or ad hoc capability exists, with important coverage and implementation gaps. |
+| 3 | Pilot-Ready | Documented conditions support a bounded, monitored pilot with accountable owners. |
+| 4 | Deployment-Ready | Capabilities are resourced, governed, and operating across the intended deployment scope. |
+| 5 | Adaptive & Scalable | Repeated evidence shows measurement, learning, adaptation, resilience, and scalable capacity. |
 
-The beta reports ten dimension ratings, four unweighted domain averages, and a **Preliminary Overall Maturity** calculated as the unweighted mean across all dimensions. It produces a **PAIR Readiness Profile**, not a formal index. A future **PAIR Index** should only be introduced after repeated application, evidence testing, scoring refinement, and validation.
+**Insufficient evidence is not score 1.** A score of 1 requires evidence of absent or inadequate conditions. When evidence cannot support a maturity judgment, the dimension is recorded as `insufficient-evidence`, excluded from the overall calculation, and surfaced as a validation need.
+
+The beta reports ten dimension judgments, coverage-aware domain summaries, and—only when all ten dimensions are rated—a **Preliminary Overall Maturity** calculated as the unweighted mean across all dimensions. It produces a **PAIR Readiness Profile**, not a formal index. A future **PAIR Index** should only be introduced after repeated application, evidence testing, scoring refinement, and validation.
 
 ## Features
 
-- Guided ten-dimension assessment with evidence notes and confidence ratings
-- Browser-only autosave with no account or backend required by the application
-- PAIR Readiness Profile with domain summaries, strengths, gaps, and rule-based recommendations
-- JSON import and export
-- Print-friendly results for browser-based PDF export
-- Responsive, keyboard-accessible interface
-- Configuration-driven dimensions, maturity mapping, scoring, and recommendation rules
+- Guided ten-dimension assessment with exact constructs, observable evidence requirements, dimension-specific anchors, structured evidence, assessor rationale, and confidence
+- Explicit `unrated`, `insufficient-evidence`, and `rated` states—missing evidence never becomes zero or a low maturity score
+- Browser-only autosave and a local named-case library, with no account or backend required
+- PAIR Readiness Profile with coverage, evidence gaps, strengths, gap-to-action plans, actors, intervention types, and validation needs
+- Calibration Mode for same-case assessor comparison and cross-case comparative learning without automatic averaging or public rankings
+- Versioned PAIR JSON, printable profiles and Calibration Reports, and v1 import migration
+- Portable **Create Readiness Sprint Brief** export for Civic Studio scoping without pricing or API coupling
+- Separate privacy-minimized benchmark-record export; no assessment data is transmitted by the application
+- Responsive and keyboard-accessible interface with mobile progress/tools retained
+- Configuration-driven methodology, scoring, calibration, recommendation, and export logic
 
 ## Research foundations
 
@@ -88,6 +93,8 @@ See the curated [`docs/REFERENCES.md`](docs/REFERENCES.md) and the in-product me
 ## Project documentation
 
 - [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) — framework structure and research position
+- [`docs/VALIDATION.md`](docs/VALIDATION.md) — calibration protocol, validation plan, and current risks
+- [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md) — versioned exchange contracts and privacy boundaries
 - [`docs/NAMING.md`](docs/NAMING.md) — naming and terminology rules
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — verified research foundations
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — development and validation roadmap
@@ -118,16 +125,19 @@ Application routes use the Next.js App Router:
 - `/` — product overview
 - `/assessment` — assessment context and ten readiness questions
 - `/results` — browser-generated readiness profile
+- `/calibration` — local assessor calibration and comparative-learning workspace
 - `/methodology` — framework, research position, references, and roadmap
 
-The test suite covers maturity thresholds, domain and overall calculations, ranking of strengths and gaps, recommendation selection, JSON export, and JSON import normalization.
+The test suite covers methodology configuration, maturity thresholds, missing evidence, confidence handling, coverage-aware scoring, recommendations, schema/version migration, import/export roundtrips, calibration disagreements, Civic Studio handoff, and benchmark-record privacy.
 
 ## Methodology customization
 
-- Edit domains, questions, definitions, organization types, and use cases in `lib/assessment-data.ts`.
+- Edit versioned dimensions, constructs, evidence requirements, anchors, examples, organization types, and use cases in `lib/assessment-data.ts`.
 - Edit maturity labels and thresholds in `lib/maturity.ts`.
-- Edit score-based action rules in `lib/recommendations.ts`.
-- Edit aggregation and export behavior in `lib/scoring.ts`.
+- Edit structured gap-to-action rules in `lib/recommendations.ts`.
+- Edit aggregation and portable export behavior in `lib/scoring.ts`.
+- Edit disagreement and dispersion rules in `lib/calibration.ts`.
+- Keep the JSON contracts in `schemas/` synchronized with `docs/DATA_SCHEMA.md`.
 
 Keeping methodology logic outside the UI makes the framework easier to review, evaluate, and extend.
 

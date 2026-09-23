@@ -2,57 +2,62 @@
 
 This roadmap separates **framework development** from **software development**. The methodology should mature through applied use before the software becomes more complex.
 
-## Current Stage — PAIR Framework v0.1
+## Current Stage — PAIR Framework v0.2.0
 
-Goal: establish a transparent baseline framework and a lightweight assessment tool.
+Goal: harden the transparent baseline framework for evidence-based assessment, calibration, portable expert handoff, and real-world validation.
 
 Current priorities:
 
 - maintain the four-domain PAIR structure;
 - test the ten readiness dimensions in real-world settings;
-- collect evidence alongside maturity scores;
+- require structured evidence, confidence, and rationale alongside maturity scores;
+- preserve insufficient evidence as a nonnumeric state;
+- calibrate assessors without automatic averaging;
+- support local named validation cases and longitudinal comparison;
+- produce portable Readiness Sprint Briefs without platform coupling;
 - generate readiness profiles rather than definitive rankings;
 - document methodological changes;
 - keep assessment logic configuration-driven;
 - validate whether users understand and can consistently apply the maturity rubric.
 
-## PAIR Assessment Tool v0.1
+## PAIR Assessment Tool v0.2
 
-The first application release should include:
+The current application includes:
 
 - assessment setup;
 - ten readiness dimensions;
 - 1–5 maturity scoring;
-- optional evidence notes;
-- confidence ratings;
-- four PAIR domain summaries;
+- structured evidence metadata and quality classification;
+- evidence and assessor confidence ratings;
+- assessor rationale and dimension-specific anchors;
+- coverage-aware PAIR domain summaries;
 - top strengths and priority gaps;
 - rule-based recommendations;
 - print/PDF-friendly results;
 - JSON export/import;
-- local browser state only.
+- local named-case storage and duplication;
+- Calibration Mode and printable/exportable Calibration Reports;
+- portable Readiness Sprint Brief and privacy-minimized benchmark record exports.
 
 It should not require authentication, a database, payments, analytics, or an LLM.
 
-## v0.2 — Deeper Assessment
+## v0.3 — Applied Validation
 
 Potential additions:
 
 - multiple questions or indicators per dimension;
-- more explicit evidence requirements;
-- evidence-confidence scoring;
+- expert content-validity review;
+- blinded multi-rater case scoring and reconciliation;
+- cognitive interviews and test–retest assessment;
+- evidence-packet and aggregation sensitivity testing;
 - use-case-specific assessment profiles;
 - optional weights that are clearly labeled experimental;
-- improved report export;
-- structured expert-review workflow.
+- observed-outcome and longitudinal case studies.
 
-## v0.3 — Repeated Use
+## v0.4 — Repeated Use
 
 Potential additions:
 
-- saved assessments;
-- longitudinal reassessment;
-- comparison of the same place over time;
 - reviewer annotations;
 - structured stakeholder input;
 - downloadable branded reports;

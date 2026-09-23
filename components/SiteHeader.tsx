@@ -9,8 +9,8 @@ export function SiteHeader() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="/assessment">Assessment</a>
+          <a href="/calibration">Calibration</a>
           <a href="/methodology">Methodology</a>
-          <a href="/methodology">Research</a>
         </nav>
       </div>
     </header>

@@ -1,6 +1,6 @@
-import type { Dimension } from "@/lib/types";
+import type { ActionPlan } from "@/lib/types";
 
-export function RecommendationCard({ dimension, score, action }: { dimension: Dimension; score: number; action: string }) {
-  const category = score <= 2 ? "High-priority action" : score === 3 ? "Pilot-readiness action" : "Scaling action";
-  return <article className={`recommendation-card domain-${dimension.domain}`}><div className="recommendation-top"><span>{category}</span><strong>{score}.0</strong></div><h3>{dimension.title}</h3><p>{action}</p></article>;
+export function RecommendationCard({ plan }: { plan: ActionPlan }) {
+  const cited = plan.supportingEvidence.filter((item) => item.quality !== "missing");
+  return <article className="recommendation-card"><div className="recommendation-top"><span>{plan.interventionType}</span><strong>{plan.confidence ? `${plan.confidence} confidence` : "Unscored"}</strong></div><h3>{plan.dimensionTitle}</h3><dl className="action-plan"><div><dt>Diagnosed issue</dt><dd>{plan.diagnosedIssue}</dd></div><div><dt>Supporting evidence</dt><dd>{cited.length ? cited.map((item) => item.source || item.notes).filter(Boolean).join("; ") : "No usable evidence cited"}</dd></div><div><dt>Responsible actors</dt><dd>{plan.responsibleActors.join("; ")}</dd></div><div><dt>Recommended intervention</dt><dd>{plan.recommendedIntervention}</dd></div><div><dt>Next validation step</dt><dd>{plan.suggestedValidationStep}</dd></div></dl></article>;
 }

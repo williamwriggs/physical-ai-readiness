@@ -1,6 +1,6 @@
 # PAIR Naming and Terminology Guide
 
-Version: **PAIR Framework v0.1**
+Version: **PAIR Framework v0.2.0**
 
 This guide defines the public naming convention for the `physical-ai-readiness` repository and related research, tools, reports, and deployments.
 
@@ -137,8 +137,8 @@ Methodology and software should be versioned separately when practical.
 
 Example:
 
-- **PAIR Framework v0.1** — methodology
-- **PAIR Assessment Tool v0.1.0** — application release
+- **PAIR Framework v0.2.0** — methodology
+- **PAIR Assessment Tool v0.2.0** — application release
 
 A software interface change does not necessarily imply a methodology change. A change to dimensions, scoring, maturity thresholds, weights, or evidence standards should trigger a framework-version review.
 
@@ -164,4 +164,4 @@ Public subtitle:
 
 Until a formal peer-reviewed publication or DOI is available, use:
 
-> Riggs, W. (2026). *PAIR — Physical AI Readiness: Open-source assessment framework and beta tool*.
+> Riggs, W. (2026). *PAIR — Physical AI Readiness: Source-available assessment framework and beta tool*.

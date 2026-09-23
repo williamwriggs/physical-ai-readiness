@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/williamwriggs/physical-ai-readiness/blob/main/schemas/pair-readiness-sprint-brief-1.0.schema.json",
+  "title": "PAIR Readiness Sprint Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedAt", "sourceAssessment", "objective", "priorityGaps", "proposedWorkstreams", "interviewPlan", "actionMemoOutline", "note"],
+  "properties": {
+    "schemaVersion": { "const": "pair-readiness-sprint-brief/1.0" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sourceAssessment": { "type": "object" },
+    "objective": { "type": "string" },
+    "priorityGaps": { "type": "array", "items": { "type": "object" } },
+    "proposedWorkstreams": { "type": "array", "items": { "type": "object", "required": ["title", "interventionType", "responsibleActors", "validationNeed", "suggestedActivities", "intendedDeliverable"] } },
+    "interviewPlan": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["stakeholder", "purpose"], "properties": { "stakeholder": { "type": "string" }, "purpose": { "type": "string" } } } },
+    "actionMemoOutline": { "type": "array", "items": { "type": "string" } },
+    "note": { "type": "string" }
+  }
+}

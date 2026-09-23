@@ -1,6 +1,6 @@
 # PAIR Methodology
 
-Version: **PAIR Framework v0.1**
+Version: **PAIR Framework v0.2.0**
 
 ## Overview
 
@@ -73,21 +73,32 @@ Returns intentionally places outcomes inside the readiness framework rather than
 
 ## Maturity Assessment
 
-PAIR v0.1 uses a five-point maturity rubric.
+PAIR v0.2.0 uses a five-point maturity rubric. Each dimension defines its own construct, observable evidence requirements, anchor wording, and evidence example for every level in `lib/assessment-data.ts`.
 
 | Score | Level | Meaning |
 |---:|---|---|
-| 1 | Not Ready | Major gaps exist and ownership or deployment pathways may be unclear. |
-| 2 | Emerging | Some capacity exists, but systems remain incomplete or fragmented. |
-| 3 | Pilot-Ready | Sufficient capacity exists for a bounded deployment with clear oversight. |
-| 4 | Deployment-Ready | Policies, infrastructure, people, and operations can support sustained deployment. |
-| 5 | Adaptive & Scalable | The system can deploy, evaluate outcomes, learn, adapt, and scale. |
+| 1 | Not Ready | Evidence demonstrates that foundational conditions are absent or materially inadequate. |
+| 2 | Emerging | Partial or ad hoc capability exists, with important coverage and implementation gaps. |
+| 3 | Pilot-Ready | Documented conditions support a bounded, monitored pilot with accountable owners. |
+| 4 | Deployment-Ready | Capabilities are resourced, governed, and operating across the intended deployment scope. |
+| 5 | Adaptive & Scalable | Repeated evidence shows measurement, learning, adaptation, resilience, and scalable capacity. |
 
-PAIR v0.1 should produce a **readiness profile**, not a validated composite index. The pattern of strengths and gaps across dimensions is more informative at this stage than a single summary number.
+The assessment also has a nonnumeric **insufficient evidence** state. It is used when evidence cannot support any anchor. It is not score 0 and is never converted to score 1. A rated response requires a score, assessor rationale, assessor confidence, and at least one usable evidence record with a named source and evidence confidence.
+
+PAIR v0.2.0 produces a **readiness profile**, not a validated composite index. The pattern of strengths, gaps, evidence coverage, and uncertainty across dimensions is more informative at this stage than a single summary number.
+
+### Aggregation
+
+- Dimension scores use the selected 1–5 anchor and are not automatically adjusted by confidence.
+- Domain results are unweighted means of rated dimensions in that domain and always report rated/total coverage.
+- Preliminary Overall Maturity is calculated only when all ten dimensions have supported ratings.
+- The overall score is the unweighted mean of ten dimensions. Because PAIR has 3 Place, 2 Architecture, 3 Institutions, and 2 Returns dimensions, this gives the domains unequal implicit weight. The choice is transparent but not yet empirically validated.
+- No aggregate overrides a decision-critical weakness, evidence gap, or calibration conflict.
+- PAIR does not automatically average conflicting assessor judgments.
 
 ## Evidence
 
-Each maturity assessment should be interpreted alongside supporting evidence. Depending on the use case, evidence may include:
+Each maturity assessment is stored alongside structured supporting evidence. Evidence records include evidence type, quality classification, source, date, geography/scope, evidence confidence, optional URL/reference, and assessor notes. Depending on the use case, evidence may include:
 
 - policy and planning documents;
 - infrastructure inventories;
@@ -101,7 +112,29 @@ Each maturity assessment should be interpreted alongside supporting evidence. De
 - market and economic-development evidence;
 - stakeholder interviews and expert review.
 
-The beta may include evidence notes and confidence ratings. Future versions may formalize evidence-quality scoring and inter-rater validation.
+Evidence quality is classified as:
+
+1. **Verified evidence** — directly reviewed documentary, dataset, observational, test, or system evidence.
+2. **Stakeholder-reported evidence** — attributed testimony or reporting that has not been independently verified.
+3. **Inferred evidence** — an assessor inference based on indirect information; the inference and limits should be stated.
+4. **Missing evidence** — a known evidence requirement that has not been obtained.
+
+Evidence confidence describes the reliability and scope match of a source. Assessor confidence separately describes confidence that the full evidence base supports the selected maturity anchor:
+
+- **Low:** material uncertainty, conflict, staleness, or substantial inference remains.
+- **Medium:** key criteria are supported, with one or more material coverage or corroboration gaps.
+- **High:** current, scope-matched evidence supports the selected anchor with no known material conflict.
+
+### Calibration methodology
+
+Calibration Mode compares two or more assessments dimension by dimension. For each dimension it reports score range, confidence-band range, cited evidence, assessor rationale, and a disagreement flag. It flags:
+
+- a score range of two or more points;
+- rated versus insufficient-evidence judgments;
+- any one-point-or-greater difference in Safety, Emergency Response & Resilience; or
+- different evidence bases associated with different scores.
+
+Overall dispersion is the mean, across dimensions with at least two ratings, of the mean pairwise absolute score difference. For two assessors this is the absolute score difference. This is a single-case calibration diagnostic—not an inter-rater reliability coefficient. Conflicting assessments remain separate until human reconciliation; no consensus score is generated automatically.
 
 ## From Assessment to Action
 
@@ -150,10 +183,14 @@ A curated, verification-focused bibliography is maintained in [`REFERENCES.md`](
 
 ## Methodological Development
 
-PAIR should be refined through repeated real-world application. Potential future methodological work includes:
+PAIR should be refined through repeated real-world application. Priority methodological work includes:
 
-- expanding from one maturity question to multiple indicators per dimension;
-- validating inter-rater reliability;
+- expert content-validity review of constructs, evidence requirements, and anchors;
+- blinded multi-assessor scoring of shared evidence packets;
+- cognitive interviews to test how assessors interpret anchors and confidence;
+- test–retest assessment and evidence-packet sensitivity testing;
+- evaluating whether the current one-judgment-per-dimension model should add non-scored criteria or validated indicators;
+- estimating ordinal agreement only after enough comparable multi-rater cases exist;
 - formalizing evidence-confidence scoring;
 - testing use-case-specific weights;
 - sensitivity analysis;
@@ -166,4 +203,4 @@ Only after sufficient validation should the project move from a readiness profil
 
 ## Limitations
 
-PAIR v0.1 is exploratory. It does not certify safety, regulatory compliance, technology performance, or deployment feasibility. Self-assessment scores may reflect perception as much as demonstrated capacity. Results should be interpreted alongside evidence, local context, stakeholder input, and expert review.
+PAIR v0.2.0 is exploratory. It does not certify safety, regulatory compliance, technology performance, deployment feasibility, or causal impact. Broad constructs and one judgment per dimension can still create halo effects. The unit of analysis may span a place, organization, operator, and multi-agency ecosystem; assessors must define scope consistently. The five levels are ordinal maturity categories, while the current means treat them as equally spaced and compensatory. Opt-in benchmark records will be self-selected and potentially re-identifiable in small cells. No criterion evidence yet shows that PAIR scores predict safer, faster, more equitable, or more durable deployments. Results should be interpreted alongside evidence, local context, stakeholder input, calibration, and expert review.

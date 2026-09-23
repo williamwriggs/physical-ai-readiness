@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/williamwriggs/physical-ai-readiness/blob/main/schemas/pair-benchmark-record-1.0.schema.json",
+  "title": "PAIR Privacy-Minimized Benchmark Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "frameworkVersion", "assessmentDate", "organizationType", "geography", "useCase", "dimensions"],
+  "properties": {
+    "schemaVersion": { "const": "pair-benchmark-record/1.0" },
+    "frameworkVersion": { "type": "string" },
+    "assessmentDate": { "type": "string", "format": "date" },
+    "organizationType": { "type": "string" },
+    "geography": { "type": "string", "minLength": 1 },
+    "useCase": { "type": "string" },
+    "dimensions": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "type": "object", "additionalProperties": false, "required": ["dimensionId", "score", "confidence"], "properties": { "dimensionId": { "type": "string" }, "score": { "type": "integer", "minimum": 1, "maximum": 5 }, "confidence": { "enum": ["low", "medium", "high"] } } } }
+  }
+}

@@ -22,7 +22,7 @@ export default function MethodologyPage() {
       <main>
         <section className="method-hero">
           <div className="shell narrow">
-            <span className="kicker"><i /> Methodology · Beta 1.0</span>
+            <span className="kicker"><i /> Methodology · Framework v0.2</span>
             <h1>A transparent framework for place-based readiness.</h1>
             <p>PAIR is an exploratory research and decision-support framework for asking whether the environments, systems, institutions, and public-value conditions around Physical AI are ready for deployment.</p>
           </div>
@@ -77,17 +77,31 @@ export default function MethodologyPage() {
           <div className="shell">
             <div className="section-heading"><span className="eyebrow">Maturity assessment</span><h2>A shared five-point language</h2><p className="section-lede">Ratings describe current conditions and support structured discussion. They are not grades or certifications.</p></div>
             <MaturityScale />
+            <div className="callout"><strong>Missing evidence is not a low score</strong><p>Score 1 requires evidence that foundational conditions are absent or inadequate. When evidence cannot support a judgment, PAIR records “insufficient evidence,” excludes that dimension from the composite, and surfaces the validation need.</p></div>
+          </div>
+        </section>
+
+        <section className="method-section">
+          <div className="shell method-grid">
+            <aside><span>03</span><p>Evidence & calibration</p></aside>
+            <article>
+              <span className="eyebrow">Repeatable judgment</span>
+              <h2>Evidence remains attached to every rating.</h2>
+              <p>Each rated dimension records evidence quality, type, source, date, geography, evidence confidence, assessor rationale, and assessor confidence. Verified evidence, stakeholder reports, inference, and missing evidence remain visibly distinct.</p>
+              <p>Calibration Mode compares two or more assessments dimension by dimension. A two-point score range, a rated-versus-insufficient conflict, a safety disagreement, or materially different evidence bases creates a reconciliation flag. PAIR never converts a disagreement into automatic consensus.</p>
+              <a className="button secondary" href="/calibration">Open Calibration Mode →</a>
+            </article>
           </div>
         </section>
 
         <section className="method-section" id="research-foundations">
           <div className="shell method-grid">
-            <aside><span>03</span><p>Research position</p></aside>
+            <aside><span>04</span><p>Research position</p></aside>
             <article>
               <span className="eyebrow">Research foundations</span>
-              <h2>Conceptually informed—not yet empirically validated.</h2>
-              <p>PAIR draws conceptually from existing research and policy frameworks addressing AI readiness, risk governance, mobility systems, urban design, workforce transition, and autonomous-vehicle deployment. These sources inform PAIR; they do not directly validate its scoring structure.</p>
-              <p>The beta does not use a validated composite index because weights, evidence standards, and comparisons have not yet been tested across multiple places and use cases. The overall mean is contextual information only.</p>
+              <h2>Conceptually Informed</h2>
+              <p>PAIR is grounded in established research and policy frameworks addressing AI readiness, risk governance, mobility systems, urban design, workforce transition, and autonomous-vehicle deployment. This literature provides a rigorous foundation for the framework’s dimensions and interpretation.</p>
+              <p>The current beta uses a transparent, unweighted summary rather than presenting a validated composite index. Structured field application will inform future refinement of weighting, evidence standards, and comparisons across places and use cases.</p>
               <h3 className="subhead">Selected references</h3>
               <ol className="references">
                 <li>Tabassi, E. (2023). <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0).</em> National Institute of Standards and Technology.</li>
@@ -106,8 +120,8 @@ export default function MethodologyPage() {
 
         <section className="method-section future-section">
           <div className="shell future-grid">
-            <div><span className="eyebrow light">From beta to validated benchmark</span><h2>What could come next</h2><p>Future versions may add validated weighting, expert review, evidence scoring, peer-city benchmarking, use-case-specific profiles, and longitudinal tracking.</p></div>
-            <div className="future-card"><span>Future validated product</span><h3>PAIR Index</h3><p>A future PAIR Index may be developed only after repeated application, expert review, methodological refinement, and comparative evidence.</p></div>
+            <div><span className="eyebrow light">Methodological development roadmap</span><h2>Advancing the PAIR methodology</h2><p>The next phase will strengthen the framework through structured field application, expert review, refined evidence standards, use-case-specific profiles, longitudinal analysis, and responsibly governed peer benchmarking.</p></div>
+            <div className="future-card"><span>Long-term validated benchmark</span><h3>Future PAIR Index</h3><p>Following sufficient field testing and validation, the PAIR methodology may support a validated index for carefully governed comparison and longitudinal learning.</p></div>
           </div>
         </section>
 
