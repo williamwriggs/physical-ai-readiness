@@ -1,6 +1,6 @@
 # Verification of the first automated evidence increment
 
-Verified locally on 2026-09-23. No public deployment performed.
+Verified locally and on the public Vercel production site on 2026-09-23.
 
 ## Automated checks
 
@@ -31,8 +31,14 @@ ACS values are from the 2020–2024 release through the explicitly identified Ce
 
 ## Operational limits
 
-The Python CLI and single-process local refresh were tested. A cloud worker, job queue, public deployment, arbitrary site polygons, automatic organization lookup, GTFS, charging and LEHD adapters were not implemented or tested in this increment. Unsupported/missing evidence remains explicit. Fresh collection is separate from the frontend; shipped snapshots and import work without a hosted Python service.
+The Python CLI and single-process local refresh were tested. A cloud worker, job queue, arbitrary site polygons, automatic organization lookup, GTFS, charging and LEHD adapters were not implemented or tested in this increment. Unsupported/missing evidence remains explicit. Fresh collection is separate from the frontend; shipped snapshots and import work without a hosted Python service.
 
 ## Repeat the browser check
 
 `scripts/evidence/verify-browser.mjs` uses Playwright with a temporary Chrome profile and assumes a local preview with `PAIR_ENABLE_LOCAL_WORKER=1`. Set `PAIR_TEST_URL` to its address. Supply an installed Playwright module through `PAIR_PLAYWRIGHT_MODULE`, or install Playwright in the test environment. Browser screenshots and exported test artifacts are written only under the ignored `work/` directory.
+
+## Public deployment verification
+
+The GitHub `main` branch was deployed to https://www.physicalaireadiness.org. A fresh Chrome profile verified both county boundaries and eight indicators per county, acceptance/correction/rejection, unchanged maturity ratings, provenance export and reload, dictionary navigation, and mobile layout at 390 pixels. No unexpected browser errors or production error/fatal logs were observed on the corrected deployment. The disabled cloud refresh returns a handled HTTP 400 with an explanatory message and preserves existing snapshots.
+
+The initial production build exposed a module-format mismatch in the evidence API routes that did not occur locally. The production build now explicitly uses webpack and traces Next.js's generated CommonJS package boundary for both evidence routes. The corrected public routes and complete review workflow were retested successfully. This is a deployment compatibility decision, with no change to calculations or readiness judgments.
