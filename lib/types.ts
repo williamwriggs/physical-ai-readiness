@@ -1,3 +1,4 @@
+import type { AutomatedEvidence } from "./public-evidence";
 export type PairDomain = "place" | "architecture" | "institutions" | "returns";
 export type MaturityScore = 1 | 2 | 3 | 4 | 5;
 export type Confidence = "low" | "medium" | "high" | "";
@@ -71,6 +72,7 @@ export interface AssessmentMeta {
 }
 
 export interface AssessmentState {
+  automatedEvidence?: AutomatedEvidence;
   assessmentId: string;
   caseId: string;
   frameworkVersion: string;
@@ -108,6 +110,7 @@ export interface EvidenceGap {
 }
 
 export interface AssessmentExport {
+  automatedEvidence?: AutomatedEvidence;
   schemaVersion: "2.0";
   frameworkVersion: string;
   generatedAt: string;

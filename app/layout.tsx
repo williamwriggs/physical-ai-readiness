@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       : "http://localhost:3000",
   ),
   title: "PAIR Assessment Tool | Physical AI Readiness",
+  icons: { icon: "/favicon.svg" },
   description:
     "A source-available assessment framework for evaluating Physical AI readiness across Place, Architecture, Institutions, and Returns.",
   openGraph: {

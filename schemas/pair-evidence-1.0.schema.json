@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pair-evidence-1.0.schema.json",
+  "title": "PAIR public evidence snapshot",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "dictionaryVersion",
+    "pipelineVersion",
+    "packageId",
+    "generatedAt",
+    "useCase",
+    "geography",
+    "records",
+    "warnings",
+    "manifest"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "pair-evidence/1.0"
+    },
+    "dictionaryVersion": {
+      "const": "1.0.0"
+    },
+    "pipelineVersion": {
+      "type": "string"
+    },
+    "packageId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "useCase": {
+      "type": "string"
+    },
+    "geography": {
+      "type": "object",
+      "required": [
+        "geoid",
+        "name",
+        "type",
+        "boundaryVintage",
+        "boundaryUrl",
+        "geometryHash",
+        "geometry",
+        "landAreaKm2"
+      ],
+      "properties": {
+        "geoid": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "const": "county"
+        },
+        "boundaryVintage": {
+          "type": "string"
+        },
+        "boundaryUrl": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "geometryHash": {
+          "type": "string"
+        },
+        "geometry": {
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon",
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array"
+            }
+          }
+        },
+        "landAreaKm2": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "indicatorId",
+          "dimensionIds",
+          "value",
+          "unit",
+          "evidenceRole",
+          "status",
+          "missingReason",
+          "marginOfError",
+          "numerator",
+          "denominator",
+          "geographyId",
+          "source",
+          "calculation",
+          "limitations"
+        ],
+        "properties": {
+          "indicatorId": {
+            "type": "string"
+          },
+          "dimensionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "evidenceRole": {
+            "enum": [
+              "context",
+              "data-quality"
+            ]
+          },
+          "status": {
+            "enum": [
+              "available",
+              "missing"
+            ]
+          },
+          "missingReason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "marginOfError": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "numerator": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "denominator": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "geographyId": {
+            "type": "string",
+            "pattern": "^[0-9]{5}$"
+          },
+          "source": {
+            "type": "object",
+            "required": [
+              "name",
+              "url",
+              "retrievedAt",
+              "observationPeriod",
+              "license",
+              "snapshotSha256",
+              "annotations"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "retrievedAt": {
+                "type": "string"
+              },
+              "observationPeriod": {
+                "type": "string"
+              },
+              "license": {
+                "type": "string"
+              },
+              "snapshotSha256": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "annotations": {
+                "type": "object"
+              }
+            }
+          },
+          "calculation": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manifest": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "history": {
+      "type": "object",
+      "required": [
+        "packages",
+        "reviews"
+      ],
+      "properties": {
+        "packages": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "#"
+          }
+        },
+        "reviews": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "type": "object",
+            "required": [
+              "packageId",
+              "indicatorId",
+              "decision",
+              "note",
+              "correctedValue",
+              "reviewedAt",
+              "reviewer",
+              "useCase",
+              "assessmentGeography"
+            ],
+            "properties": {
+              "packageId": {
+                "type": "string"
+              },
+              "indicatorId": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "reviewedAt": {
+                "type": "string"
+              },
+              "reviewer": {
+                "type": "string"
+              },
+              "useCase": {
+                "type": "string"
+              },
+              "assessmentGeography": {
+                "type": "string"
+              },
+              "decision": {
+                "enum": [
+                  "accepted",
+                  "rejected",
+                  "corrected"
+                ]
+              },
+              "correctedValue": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

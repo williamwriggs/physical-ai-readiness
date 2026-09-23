@@ -38,3 +38,10 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# Local evidence worker and immutable raw snapshots
+/.venv/
+/.evidence-cache/
+__pycache__/
+*.pyc
+*.tsbuildinfo

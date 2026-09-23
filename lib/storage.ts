@@ -1,3 +1,4 @@
+import { normalizeAutomatedEvidence } from "./public-evidence";
 import { FRAMEWORK_VERSION, dimensions } from "./assessment-data";
 import type {
   AssessmentMeta,
@@ -152,6 +153,7 @@ function fromCurrentState(source: Record<string, unknown>): AssessmentState {
   state.caseId = typeof source.caseId === "string" && source.caseId ? source.caseId : state.caseId;
   state.frameworkVersion = typeof source.frameworkVersion === "string" ? source.frameworkVersion : FRAMEWORK_VERSION;
   state.meta = normalizeMeta(source.meta, state.meta);
+  if (source.automatedEvidence !== undefined) state.automatedEvidence = normalizeAutomatedEvidence(source.automatedEvidence);
   const responses = isObject(source.responses) ? source.responses : {};
   for (const dimension of dimensions) state.responses[dimension.id] = normalizeResponse(responses[dimension.id]);
   state.createdAt = typeof source.createdAt === "string" ? source.createdAt : state.createdAt;
@@ -171,6 +173,7 @@ function fromExport(source: Record<string, unknown>): AssessmentState {
   state.caseId = typeof source.assessment.caseId === "string" ? source.assessment.caseId : state.caseId;
   state.frameworkVersion = typeof source.frameworkVersion === "string" ? source.frameworkVersion : FRAMEWORK_VERSION;
   state.meta = normalizeMeta(source.organization, state.meta);
+  if (source.automatedEvidence !== undefined) state.automatedEvidence = normalizeAutomatedEvidence(source.automatedEvidence);
   state.meta.caseName = typeof source.assessment.caseName === "string" ? source.assessment.caseName : state.meta.caseName;
   state.meta.assessorLabel = typeof source.assessment.assessorLabel === "string" ? source.assessment.assessorLabel : state.meta.assessorLabel;
   state.meta.assessmentDate = typeof source.assessment.assessmentDate === "string" ? source.assessment.assessmentDate : state.meta.assessmentDate;
@@ -188,6 +191,7 @@ function fromLegacyExport(source: Record<string, unknown>): AssessmentState {
   }
   const state = emptyAssessment();
   state.meta = normalizeMeta(source.organization, state.meta);
+  if (source.automatedEvidence !== undefined) state.automatedEvidence = normalizeAutomatedEvidence(source.automatedEvidence);
   for (const row of source.dimensions) {
     if (!isObject(row) || typeof row.id !== "string" || !state.responses[row.id]) continue;
     state.responses[row.id] = normalizeResponse(row);
@@ -225,7 +229,7 @@ export function duplicateAssessment(state: AssessmentState, caseName: string): A
     meta: { ...state.meta, caseName, assessorLabel: "", assessmentDate: today() },
     responses: Object.fromEntries(Object.entries(state.responses).map(([id, response]) => [id, {
       ...response,
-      evidence: response.evidence.map((item) => ({ ...item, id: makeId("evidence") })),
+      evidence: response.evidence.map((item) => ({ ...item, id: item.id.startsWith("public:") ? item.id : makeId("evidence") })),
     }])),
     createdAt: now,
     updatedAt: now,

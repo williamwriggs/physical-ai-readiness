@@ -505,3 +505,34 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .calibration-table { min-width: 0; font-size: 8px; }
   .calibration-table th, .calibration-table td { min-width: 0; padding: 7px; }
 }
+
+.public-evidence { margin: 24px 0; scroll-margin-top: 100px; }
+.public-evidence > p { line-height: 1.6; }
+.public-evidence label { display: grid; gap: 7px; font-size: 13px; margin: 12px 0; }
+.public-evidence input:not([type=checkbox]), .public-evidence select, .public-evidence textarea { width:100%; padding:10px; border:1px solid var(--line); border-radius:5px; background:white; color:var(--ink); }
+.public-evidence textarea { min-height:70px; }
+.evidence-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:18px 0; }
+.evidence-actions button { border:1px solid #b2c5bf; border-radius:5px; padding:10px 14px; background:#f0f6f3; color:#214c42; cursor:pointer; font-size:13px; }
+.evidence-actions button:disabled { opacity:.5; cursor:not-allowed; }
+.evidence-actions a { font-size:13px; text-decoration:underline; }
+.boundary-preview { display:grid; grid-template-columns: minmax(180px,1fr) 1.3fr; gap:24px; margin:24px 0; }
+.boundary-preview svg { width:100%; background:#f7faf8; border-radius:6px; }
+.boundary-preview p { font-size:13px; line-height:1.6; }
+.public-evidence .evidence-checkbox { display:flex; align-items:flex-start; gap:10px; line-height:1.5; }
+.evidence-checkbox input { margin-top:4px; flex-shrink:0; }
+.automated-records { display:grid; gap:20px; }
+.automated-record { padding:24px 0; border-bottom:1px solid var(--line); }
+.automated-record h3 { margin:10px 0; }
+.automated-record p { font-size:13px; line-height:1.6; }
+.automated-record .evidence-value { font-size:28px; font-weight:600; margin:10px 0; }
+.evidence-value small { font-size:14px; font-weight:400; }
+.automated-record details { font-size:13px; margin:15px 0; }
+.evidence-warning { color:#755007; }
+.public-evidence li { margin:12px 0; line-height:1.6; font-size:13px; }
+.evidence-dictionary { padding-top:60px; padding-bottom:60px; max-width:850px; }
+.evidence-dictionary > p { font-size:18px; line-height:1.7; }
+.evidence-dictionary article { border-top:1px solid var(--line); padding:25px 0; line-height:1.7; }
+.evidence-dictionary dl > div { margin:12px 0; }
+.evidence-dictionary dt { font-weight:600; }
+.evidence-dictionary dd { margin:0; }
+@media(max-width:620px){.boundary-preview{grid-template-columns:1fr}.evidence-actions{align-items:stretch;flex-direction:column}.site-header nav{flex-wrap:wrap;justify-content:flex-end}}

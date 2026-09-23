@@ -21,7 +21,8 @@
     "gaps": { "type": "array", "items": { "$ref": "#/$defs/actionPlan" } },
     "recommendations": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "$ref": "#/$defs/actionPlan" } },
     "responsibleActors": { "type": "array", "items": { "type": "string" } },
-    "validationNeeds": { "type": "array", "items": { "type": "string" } }
+    "validationNeeds": { "type": "array", "items": { "type": "string" } },
+    "automatedEvidence": { "$ref": "pair-evidence-1.0.schema.json#/$defs/history" }
   },
   "$defs": {
     "assessment": { "type": "object", "additionalProperties": false, "required": ["assessmentId", "caseId", "caseName", "assessorLabel", "assessmentDate", "updatedAt"], "properties": { "assessmentId": { "type": "string" }, "caseId": { "type": "string" }, "caseName": { "type": "string" }, "assessorLabel": { "type": "string" }, "assessmentDate": { "type": "string", "format": "date" }, "updatedAt": { "type": "string", "format": "date-time" } } },

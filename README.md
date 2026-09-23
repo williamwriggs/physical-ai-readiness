@@ -156,3 +156,7 @@ Until a formal publication or DOI is available, please cite the project as:
 ## License
 
 Source-available for evaluation only. Commercial use requires a separate written license. See [`LICENSE`](LICENSE) and [`COMMERCIAL.md`](COMMERCIAL.md).
+
+## Automated public evidence
+
+The assessment now supports a reviewed county evidence profile from OpenStreetMap/OSMnx and Census ACS. Start with [the workflow guide](docs/evidence/WORKFLOW.md), [indicator dictionary](docs/evidence/INDICATOR_DICTIONARY.md), and [methodological decisions](docs/evidence/METHODS_AND_DECISIONS.md). Public observations never assign maturity scores. Dated live-source snapshots for Jefferson County KY and San Francisco County CA are included. On-demand collection is a local Python worker feature; cloud deployment is not part of this increment.

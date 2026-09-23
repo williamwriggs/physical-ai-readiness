@@ -109,6 +109,7 @@ export function buildAssessmentExport(state: AssessmentState): AssessmentExport 
   ])];
   return {
     schemaVersion: "2.0",
+    ...(state.automatedEvidence ? { automatedEvidence: state.automatedEvidence } : {}),
     frameworkVersion: state.frameworkVersion,
     generatedAt: new Date().toISOString(),
     framework: "PAIR",

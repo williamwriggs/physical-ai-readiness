@@ -1,0 +1,38 @@
+# Verification of the first automated evidence increment
+
+Verified locally on 2026-09-23. No public deployment performed.
+
+## Automated checks
+
+- 47 application tests passed, including existing assessment, migration, export and calibration tests.
+- Six Python calculation tests passed, including ACS suppression, ratio uncertainty, geography validation, release mismatch, reciprocal-edge deduplication and partial sidewalk-tag coverage.
+- TypeScript compilation, ESLint and the Next.js production build passed.
+- Browser verification passed for county selection and confirmation, all eight records for both counties, acceptance/correction/rejection, unchanged maturity ratings, provenance export and reload, a live refresh preserving previous snapshots, dictionary/home navigation, and a 390-pixel mobile viewport without horizontal overflow.
+- Final browser run reported zero console or page errors. Screenshots were visually inspected.
+
+The browser verification initially found an origin-comparison problem in local refresh and an omitted favicon declaration. Both were corrected and verified. A duplicate-case regression test also ensures source links remain removable after a validation case is copied.
+
+## Live-source integration
+
+Both included snapshots returned 8/8 available automated indicators. These are public-context observations, not validated readiness scores.
+
+| Indicator | Jefferson County KY 21111 | San Francisco County CA 06075 |
+|---|---:|---:|
+| ACS resident population | 783,022 | 830,235 |
+| ACS households | 331,554 | 363,970 |
+| ACS median household income in 2024 USD | 69,866 | 140,970 |
+| Households without a vehicle percent | 8.75 | 30.16 |
+| Mapped drivable street length km | 6,484.14 | 1,878.18 |
+| Mean mapped segment length m | 160.40 | 113.06 |
+| Mapped consolidated intersections per land km² | 20.75 | 63.12 |
+| Sidewalk attribute coverage percent eligible length | 3.96 | 63.86 |
+
+ACS values are from the 2020–2024 release through the explicitly identified Census Reporter mirror. The official keyed Census adapter was implemented but not live-tested with a key. OSM uses the 2026-09-23 midnight UTC snapshot. Full precision, margins of error, source information, boundary geometry, transformation settings and limitations appear in the JSON packages. Sidewalk attribute coverage measures documentation, not sidewalk presence or accessibility. The county boundaries and urban forms differ; this table is not a readiness ranking.
+
+## Operational limits
+
+The Python CLI and single-process local refresh were tested. A cloud worker, job queue, public deployment, arbitrary site polygons, automatic organization lookup, GTFS, charging and LEHD adapters were not implemented or tested in this increment. Unsupported/missing evidence remains explicit. Fresh collection is separate from the frontend; shipped snapshots and import work without a hosted Python service.
+
+## Repeat the browser check
+
+`scripts/evidence/verify-browser.mjs` uses Playwright with a temporary Chrome profile and assumes a local preview with `PAIR_ENABLE_LOCAL_WORKER=1`. Set `PAIR_TEST_URL` to its address. Supply an installed Playwright module through `PAIR_PLAYWRIGHT_MODULE`, or install Playwright in the test environment. Browser screenshots and exported test artifacts are written only under the ignored `work/` directory.

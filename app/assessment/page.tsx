@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AssessmentQuestion } from "@/components/AssessmentQuestion";
+import { PublicEvidenceWorkbench } from "@/components/PublicEvidenceWorkbench";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SiteHeader } from "@/components/SiteHeader";
 import { dimensions, organizationTypes, useCases } from "@/lib/assessment-data";
@@ -151,6 +152,7 @@ export default function AssessmentPage() {
         <label>Assessment date <b>Required</b><input required type="date" value={state.meta.assessmentDate} onChange={(event) => updateMeta("assessmentDate", event.target.value)} /></label>
         <label>Broad benchmark geography <span>Optional</span><input value={state.meta.benchmarkGeography} onChange={(event) => updateMeta("benchmarkGeography", event.target.value)} placeholder="e.g. US West · metropolitan" /><small>Used only if you choose to export a minimized benchmark record. Avoid city names or addresses.</small></label>
       </div></section>
+        <PublicEvidenceWorkbench key={state.assessmentId} state={state} onChange={setState} />
         <div className="questions-heading"><div><span>Step 2</span><h2>Readiness dimensions</h2></div><p>Every rated dimension requires evidence, assessor confidence, and rationale. “Insufficient evidence” is a valid outcome.</p></div>
         {dimensions.map((dimension) => <div id={dimension.id} className="anchor-section" key={dimension.id}><AssessmentQuestion dimension={dimension} response={state.responses[dimension.id]} onChange={(response) => setState((current) => ({ ...current, responses: { ...current.responses, [dimension.id]: response } }))} /></div>)}
         <section className="assessment-submit"><span className="eyebrow light">Assessment status</span><h2>Turn evidence into a readiness profile.</h2><p>{completion.readyForProfile ? "All context and dimension requirements are complete. Your profile is ready." : `${completion.completed} of 10 dimensions complete · ${completion.missingMeta.length} context field${completion.missingMeta.length === 1 ? "" : "s"} missing.`}</p><button type="button" className={`button light-button ${completion.readyForProfile ? "" : "disabled"}`} aria-disabled={!completion.readyForProfile} onClick={goToResults}>View readiness profile <span aria-hidden="true">→</span></button></section>
